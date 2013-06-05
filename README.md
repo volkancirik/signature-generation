@@ -23,4 +23,4 @@ It takes quite amount of time, be patient.
 
 Please take a look at report.pdf but it is pretty slopy due to
 some unfortunate incidents. it will be better in future, I believe.
-But here's [a link](https://github.com/wolet/deep-belief-networks)! for tutorial on both Deep Belief Networks and Restricted Boltzmann Machines.
+But here's [a link](https://github.com/wolet/deep-belief-networks)! a tutorial on both Deep Belief Networks and Restricted Boltzmann Machines.

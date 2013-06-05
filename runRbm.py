@@ -7,7 +7,7 @@ def readImage(dfile):
   output = []
   img = Image.new("1",(120,100))
 
-  tset = 0
+  tset = 1 # set it to 0 if you want to set the treshold
   treshold = 230
 
   for line in dfile:
@@ -35,17 +35,22 @@ def readImage(dfile):
   return data
 
 def readDBN():
-  pkl_file = open(sys.argv[3], 'rb')
+  pkl_file = open(sys.argv[4], 'rb')
   dbn = pickle.load(pkl_file)
   return dbn
 def readdata():
   readrbm  = int(sys.argv[2])
+
+  nuser = int(sys.argv[3])
   if readrbm:
-    data = sys.argv[1]
+    if int(sys.argv[1]) == 0:
+      data = ""
+    else:
+      data = sys.argv[1]
   else:
     dfile = open(sys.argv[1])
     data = readImage(dfile)
-  return data,readrbm
+  return data,readrbm,nuser
 
 def saveRBM(r):
   f = open(sys.argv[1].split('.')[0]+'.pkl','wb')
@@ -53,20 +58,27 @@ def saveRBM(r):
   f.close()
 
 if __name__ == '__main__':
-    data,readrbm = readdata()
+    data,readrbm,nuser = readdata()
 
     if readrbm:
       dbn = readDBN();
-      res = dbn.run_hidden(np.array([[1]]))
+      res = dbn.run_hidden(np.identity(nuser))
       img = Image.new("1",(120,100))
+
+      k = 1
       for r in res:
         pixels = [ 255 if pixel == 0 else 0 for pixel in r ]
         img.putdata(pixels)
-        img.save(sys.argv[1]+'-gen.JPEG',"JPEG")
+        if nuser == 1:
+          img.save(data+'-gen.JPEG',"JPEG")
+        else:
+          img.save(str(k)+'-gen.JPEG',"JPEG")
+        k = k+1
+
     else:
       N,M = data.shape
       option = [0,0,0,0,0,0]
-      dbn = rbm.DBN(M,[1000,500,50,10,1],option)
-      print "training started"
-      dbn.train(data,5000)
+      dbn = rbm.DBN(M,[1000,500,100,50,nuser],option)
+      print "training started for ",nuser,"users"
+      dbn.train(data,2000)
       saveRBM(dbn)

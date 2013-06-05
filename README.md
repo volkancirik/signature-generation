@@ -7,7 +7,8 @@ The following packages should be installed:
 * numpy
 * scipy
 
-Please fill in the PNG file 'template' with signatures.
+Please fill in the PNG file 'template' with signatures( watching
+the video.ogv may be helpful)
 To learn a batch of signatures in png files:
 
     make all-pkl

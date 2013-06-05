@@ -7,8 +7,16 @@ The following packages should be installed:
 * numpy
 * scipy
 
-Please fill in the template.png with your signature.
-Than to learn the signature;
+Please fill in the PNG file 'template' with signatures.
+To learn a batch of signatures in png files:
+
+    make all-pkl
+
+Then for generation:
+
+    make all-gen
+
+Than to learn for only one signature;
 
     make nameOfUser.png
 
